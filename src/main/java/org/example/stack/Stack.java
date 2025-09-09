@@ -1,18 +1,17 @@
 package org.example.stack;
-
-
+// class punya stack (8-8)
 public class Stack {
     private Node first;
-
-
+    // contructor stack first nya null dulu :<
     public Stack() {
         this.first = null;
     }
 
+    // input data kedalam Node
     public void push(char value) {
 
         Node newNode = new Node(value);
-
+        // artinya jika data kosong ( fungsi haspop mendeteksi jika data ada / terisi)
         if (!hasPop()) {
             first = newNode;
         } else {
@@ -22,52 +21,24 @@ public class Stack {
         System.out.println("PUSH: Nilai " + value + " masuk kedalam stack.");
     }
 
+    // remove kalo di linked list(ngapus / ngeluarin data)
     public char pop() {
         if (!hasPop()) {
-            throw new RuntimeException("Stack lagi kosong nih");
+            throw new RuntimeException("Stack tidak memiliki nilai === 0 T_T");
         }
-        char valueToReturn = first.getValue();
+        char valueToReturn = first.getData();
         first = first.getNext();
         System.out.println("POP: Nilai " + valueToReturn + " sudah dihapus dari stack.");
         return valueToReturn;
     }
 
+    // pendeteksi nilai pada stack terisi/kosong *_*
     public boolean hasPop() {
         return first != null;
     }
 
-    public void swap() {
-        if (first == null || first.getNext() == null) {
-            throw new RuntimeException("Stack harus memiliki minimal 2 elemen untuk bisa ditukar.");
-        }
-
-        Node top = first;
-        Node second = first.getNext();
-
-        top.setNext(second.getNext());
-        second.setNext(top);
-
-        this.first = second;
-    }
-
-    public char swap_limited_edition(char newValue) {
-
-        if (first == null) {
-            throw new RuntimeException("Stack kosong, tidak ada elemen untuk diganti.");
-        }
-
-        char oldValue = first.getValue();
-
-        Node newNode = new Node(newValue);
-
-        newNode.setNext(first.getNext());
-
-        this.first = newNode;
-
-        return oldValue;
-    }
-    // hal ini tetap menyalahi aturan karena stack memiliki konsep akses terbatas T_T (LIFO)
-    public void swap_limited2(int p1, int p2) {
+    // swap dengan parameter urutan index dari data (8-8)
+    public void swap_index(int p1, int p2) {
 
         int pos1 = Math.min(p1, p2);
         int pos2 = Math.max(p1, p2);
@@ -84,7 +55,8 @@ public class Stack {
 
         Node prev1 = null;
         Node node1 = first;
-        for (int i = 1; i < pos1 && node1 != null; i++) {
+        for (int i = 1; i < pos1 && node1 != null; i++) { // lebih relevan untuk konsep LIFO karena hanya
+            //dengan batas yang ditentukan
             prev1 = node1;
             node1 = node1.getNext();
         }
@@ -101,7 +73,7 @@ public class Stack {
             return;
         }
 
-        System.out.println("SWAP: Menukar nilai '" + node1.getValue() + "' (posisi " + pos1 + ") dengan '" + node2.getValue() + "' (posisi " + pos2 + ").");
+        System.out.println("SWAP: Menukar nilai '" + node1.getData() + "' (posisi " + pos1 + ") dengan '" + node2.getData() + "' (posisi " + pos2 + ").");
 
         if (prev1 != null) {
             prev1.setNext(node2);
@@ -125,7 +97,7 @@ public class Stack {
         System.out.print("Isi Stack (dari atas ke bawah): ");
         Node current = first;
         while (current != null) {
-            System.out.print(current.getValue() + " ");
+            System.out.print(current.getData() + " ");
             current = current.getNext();
         }
         System.out.println();

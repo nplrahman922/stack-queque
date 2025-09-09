@@ -1,22 +1,19 @@
-// File: src/main/java/org/example/stack/Main.java
-package org.example.stack;
+package org.example.queue;
 
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Stack testStack = new Stack();
-
         Scanner scanner = new Scanner(System.in);
-        Stack tumpukan = new Stack();
+        Queue antrean = new Queue();
         int pilihan = 0;
 
         while (pilihan != 6) {
-            System.out.println("\n--- Menu Simulasi Tumpukan (Stack) ---");
-            System.out.println("1. Push (Tambah Data)");
-            System.out.println("2. Pop (Hapus Data)");
+            System.out.println("\n--- Menu Simulasi Antrean (Queue) ---");
+            System.out.println("1. Enqueue (Tambah Data)");
+            System.out.println("2. Dequeue (Hapus Data)");
             System.out.println("3. Swap berdasarkan Posisi/Index");
-            System.out.println("4. Tampilkan Tumpukan");
+            System.out.println("4. Tampilkan Antrean");
             System.out.println("5. Keluar");
             System.out.println("6. Kembali");
             System.out.print("Masukkan pilihan Anda: ");
@@ -25,20 +22,20 @@ public class Main {
             switch (pilihan) {
                 case 1:
                     while (true) {
-                        System.out.print("Masukkan KARAKTER untuk di-push: ");
-                        char dataMasuk = scanner.next().charAt(0);
-                        //validasi
-                        if (dataMasuk >= '0' && dataMasuk <= '9') {
-                            System.out.println("ERROR: Data tidak boleh berupa angka! Silakan coba lagi.");
-                        } else {
-                            tumpukan.push(dataMasuk);
-                            break;
-                        }
+                    System.out.print("Masukkan KARAKTER untuk di-enqueue: ");
+                    char dataMasuk = scanner.next().charAt(0);
+                    // validasi tidak boleh ada angka
+                    if (dataMasuk >= '0' && dataMasuk <= '9') {
+                        System.out.println("ERROR: Data tidak boleh berupa angka! Silakan coba lagi.");
+                    } else {
+                        antrean.enqueue(dataMasuk);
+                        break;
                     }
-                    break;
+                }
+                break;
                 case 2:
                     try {
-                        tumpukan.pop();
+                        antrean.dequeue();
                     } catch (RuntimeException e) {
                         System.out.println("ERROR: " + e.getMessage());
                     }
@@ -48,16 +45,16 @@ public class Main {
                     int pos1 = scanner.nextInt();
                     System.out.print("Masukkan posisi kedua yang akan ditukar: ");
                     int pos2 = scanner.nextInt();
-                    tumpukan.swap_index(pos1, pos2);
+                    antrean.swap_index(pos1, pos2);
                     break;
                 case 4:
-                    tumpukan.display();
+                    antrean.display();
                     break;
                 case 5:
                     System.out.println("Terima kasih! Program selesai.");
                     System.exit(0);
                 case 6:
-                    System.out.println("kembali ke menu");
+                    System.out.println("kembali ke menu.");
                     org.example.Main.main(null);
                     break;
 

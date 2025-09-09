@@ -1,0 +1,125 @@
+!! bukan hal penting hanya corat coret !!
+
+
+
+1. swap dengan mendeteksi char err pada funtion
+================================================= Queue ======================================================
+/** kode dalam maintenance dibaikin dulu ngeh T_T
+    public void swap(char data1, char data2) {
+        if (data1 == data2) {
+            return;
+        }
+
+        Node node1 = null, node2 = null;
+        Node current = head;
+        while (current != null) {
+            if (current.getData() == data1) node1 = current;
+            if (current.getData() == data2) node2 = current;
+            current = current.getNext();
+        }
+
+        if (node1 == null || node2 == null) {
+            System.out.println("ERROR: Data " + (node1 == null ? data1 : data2) + " tidak ditemukan.");
+            return;
+        }
+
+        Node prev1 = node1.getPrev();
+        Node next1 = node1.getNext();
+        Node prev2 = node2.getPrev();
+        Node next2 = node2.getNext();
+
+
+        if (next1 == node2) {
+            if (prev1 != null) prev1.setNext(node2);
+            node2.setPrev(prev1);
+            node2.setNext(node1);
+            node1.setPrev(node2);
+            node1.setNext(next2);
+            if (next2 != null) next2.setPrev(node1);
+        } else if (next2 == node1) {
+            if (prev2 != null) prev2.setNext(node1);
+            node1.setPrev(prev2);
+            node1.setNext(node2);
+            node2.setPrev(node1);
+            node2.setNext(next1);
+            if (next1 != null) next1.setPrev(node2);
+        } else {
+
+            if (prev1 != null) prev1.setNext(node2);
+            node2.setPrev(prev1);
+            node2.setNext(next1);
+            if (next1 != null) next1.setPrev(node2);
+
+            if (prev2 != null) prev2.setNext(node1);
+            node1.setPrev(prev2);
+            node1.setNext(next2);
+            if (next2 != null) next2.setPrev(node1);
+        }
+
+        if (head == node1) {
+            head = node2;
+        } else if (head == node2) {
+            head = node1;
+        }
+
+        if (tail == node1) {
+            tail = node2;
+        } else if (tail == node2) {
+            tail = node1;
+        }
+        System.out.println("SWAP: Berhasil menukar posisi " + data1 + " dan " + data2 + ".");
+    }
+ **/
+
+ ================================================== Stack ==================================================
+
+ /**    Admin sedang turu , masih dalam maintenance T_T
+     public void swap_tipechar(char data1, char data2) {
+         if (data1 == data2) return; // Tidak ada yang perlu ditukar
+
+         Node prev1 = null, node1 = null;
+         Node prev2 = null, node2 = null;
+
+         Node current = first;
+         Node prev = null;
+         while (current != null) { // loop untuk nyari data gk relevan di konsep LIFO :<
+             if (current.getData() == data1) {
+                 prev1 = prev;
+                 node1 = current;
+             }
+             if (current.getData() == data2) {
+                 prev2 = prev;
+                 node2 = current;
+             }
+             prev = current;
+             current = current.getNext();
+         }
+         if (node1 == null || node2 == null) {
+             System.out.println("ERROR: Satu atau kedua karakter tidak ditemukan di stack.");
+             return;
+         }
+
+         System.out.println("SWAP: Menukar karakter '" + data1 + "' dan '" + data2 + "'.");
+         if (prev1 != null) {
+             prev1.setNext(node2);
+         } else {
+             this.first = node2;
+         }
+
+         if (prev2 != null) {
+             prev2.setNext(node1);
+         } else {
+             this.first = node1;
+         }
+
+         Node temp = node1.getNext();
+         node1.setNext(node2.getNext());
+         node2.setNext(temp);
+     }
+ **/
+
+ ================================================================================================================
+
+alasan kode tersebut tidak digunakan karena jika muncul case 2 dalam stack/queue memiliki variabel yang sama
+contoh "(K,a,l,i,m,a,n,t,a,n)" (memiliki beberapa nilai a) maka swap yang akan dilakukan (pada nilai a) tetap berhasil, akan tetapi terjadi kerancuan
+terhadap nilai yang di swap  yang akan terkena swap yang mana??? (:Z)

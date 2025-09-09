@@ -1,5 +1,5 @@
 // File: Queue.java
-package org.example.queque;
+package org.example.queue;
 
 public class Queue {
     private Node head;
@@ -14,75 +14,62 @@ public class Queue {
         return head == null;
     }
 
-    // DIPERBAIKI: Logika enqueue (menambah di belakang/tail) agar sesuai FIFO
-    public void enqueue(int data) {
+    // Logika enqueue (menambah di belakang/tail) agar sesuai FIFO
+    public void enqueue(char data) {
         Node newNode = new Node(data);
         System.out.println("Enqueue: " + data);
+
         if (isEmpty()) {
             head = newNode;
             tail = newNode;
         } else  {
-            // Sambungkan ekor yang lama ke node baru
             tail.setNext(newNode);
-            // Sambungkan node baru kembali ke ekor yang lama
             newNode.setPrev(tail);
-            // Pindahkan penunjuk tail ke node yang baru
             tail = newNode;
         }
     }
 
-    // DIPERBAIKI: Logika dequeue (menghapus dari depan/head) agar sesuai FIFO
-    public int dequeue() {
+    public char dequeue() {
         if (isEmpty()) {
             throw new RuntimeException("Queue kosong!");
         }
 
-        // Ambil data dari head, bukan tail
-        int value = head.getData();
+        char value = head.getData();
         System.out.println("Dequeue: " + value);
 
-        // Pindahkan head ke node berikutnya
         head = head.getNext();
 
         if (head != null) {
-            // Putuskan hubungan head baru dari node sebelumnya
             head.setPrev(null);
         } else {
-            // Jika queue menjadi kosong, tail juga harus null
             tail = null;
         }
         return value;
     }
 
-    public void swap(int data1, int data2) {
-        if (data1 == data2) {
-            return; // Tidak ada yang perlu dilakukan
+    public void swap_index(int p1, int p2) {
+        if (p1 == p2) return;
+
+        Node node1 = head;
+        for (int i = 1; i < p1 && node1 != null; i++) {
+            node1 = node1.getNext();
         }
 
-        // 1. Cari kedua node
-        Node node1 = null, node2 = null;
-        Node current = head;
-        while (current != null) {
-            if (current.getData() == data1) node1 = current;
-            if (current.getData() == data2) node2 = current;
-            current = current.getNext();
+        Node node2 = head;
+        for (int i = 1; i < p2 && node2 != null; i++) {
+            node2 = node2.getNext();
         }
 
-        // 2. Validasi (ini sudah benar)
         if (node1 == null || node2 == null) {
-            System.out.println("ERROR: Data " + (node1 == null ? data1 : data2) + " tidak ditemukan.");
+            System.out.println("ERROR: Posisi di luar jangkauan queue.");
             return;
         }
 
-        // 3. Simpan node-node di sekitar node1 dan node2
         Node prev1 = node1.getPrev();
         Node next1 = node1.getNext();
         Node prev2 = node2.getPrev();
         Node next2 = node2.getNext();
 
-        // 4. Logika penukaran yang diperbaiki
-
-        // Kasus khusus: jika node bersebelahan
         if (next1 == node2) { // node1 tepat sebelum node2
             if (prev1 != null) prev1.setNext(node2);
             node2.setPrev(prev1);
@@ -97,8 +84,7 @@ public class Queue {
             node2.setPrev(node1);
             node2.setNext(next1);
             if (next1 != null) next1.setPrev(node2);
-        } else {
-            // Kasus umum: node tidak bersebelahan
+        } else { // Kasus umum
             if (prev1 != null) prev1.setNext(node2);
             node2.setPrev(prev1);
             node2.setNext(next1);
@@ -110,7 +96,6 @@ public class Queue {
             if (next2 != null) next2.setPrev(node1);
         }
 
-        // 5. Perbarui head dan tail jika perlu
         if (head == node1) {
             head = node2;
         } else if (head == node2) {
@@ -122,21 +107,18 @@ public class Queue {
         } else if (tail == node2) {
             tail = node1;
         }
-        System.out.println("SWAP: Berhasil menukar posisi " + data1 + " dan " + data2 + ".");
+        System.out.println("SWAP: Berhasil menukar posisi " + p1 + " dan " + p2 + ".");
     }
 
-    // DIPERBAIKI: Logika display agar menampilkan dari depan (head)
     public void display() {
         if (isEmpty()) {
             System.out.println("Isi Queue: (Kosong)");
             return;
         }
         System.out.print("Isi Queue (Depan -> Belakang): ");
-        // Mulai dari head untuk urutan yang benar
         Node current = head;
         while (current != null) {
             System.out.print(current.getData() + " ");
-            // Menggunakan getter
             current = current.getNext();
         }
         System.out.println();

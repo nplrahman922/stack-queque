@@ -1,8 +1,7 @@
-package org.example;
+package org.example.stack;
 
 
 public class Stack {
-
     private Node first;
 
 
@@ -67,7 +66,7 @@ public class Stack {
 
         return oldValue;
     }
-
+    // hal ini tetap menyalahi aturan karena stack memiliki konsep akses terbatas T_T (LIFO)
     public void swap_limited2(int p1, int p2) {
 
         int pos1 = Math.min(p1, p2);

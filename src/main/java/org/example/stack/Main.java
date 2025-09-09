@@ -1,5 +1,4 @@
-package org.example;
-import org.example.Stack;
+package org.example.stack;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -17,7 +16,14 @@ public class Main {
         myStack.push('a');
         myStack.push('b');
         myStack.push('c');
+        myStack.push('d');
+        myStack.push('e');
+        myStack.push('f');
+
         System.out.println();
+        myStack.display();
+
+        myStack.swap_limited2(2,4);
 
         // Menampilkan status setelah PUSH
         myStack.display();

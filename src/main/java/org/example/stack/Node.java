@@ -1,4 +1,4 @@
-package org.example;
+package org.example.stack;
 
 public class Node {
     // Atribut private untuk menyimpan nilai dan referensi ke node berikutnya

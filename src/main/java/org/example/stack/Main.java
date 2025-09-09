@@ -1,4 +1,3 @@
-// File: src/main/java/org/example/stack/Main.java
 package org.example.stack;
 
 import java.util.Scanner;

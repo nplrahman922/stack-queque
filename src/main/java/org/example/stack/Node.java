@@ -13,16 +13,19 @@ public class Node {
 
     // Method untuk mengatur node berikutnya
     public void setNext(Node next) {
+
         this.next = next;
     }
 
     // Method untuk mendapatkan node berikutnya
     public Node getNext() {
+
         return this.next;
     }
 
     // Method untuk mendapatkan nilai dari node
     public char getValue() {
+
         return this.value;
     }
 }
